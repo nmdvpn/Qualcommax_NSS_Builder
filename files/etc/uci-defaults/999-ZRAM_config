@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Pastikan uci ada
+uci batch <<EOF
+  set zram-swap.config=zram
+  set zram-swap.config.enabled='1'
+  set zram-swap.config.size='256'
+  set zram-swap.config.comp_algorithm='zstd'
+  set zram-swap.config.priority='100'
+  commit zram-swap
+EOF
+
+# Restart service untuk menerapkan perubahan segera
+/etc/init.d/zram restart
+
+exit 0
